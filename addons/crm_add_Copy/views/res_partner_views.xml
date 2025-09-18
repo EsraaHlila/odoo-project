@@ -1,0 +1,14 @@
+<odoo>
+  <record id="view_partner_form_inherit_support" model="ir.ui.view">
+    <field name="name">res.partner.form.inherit.support</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='category_id']" position="after">
+        <field name="support_agent_id"/>
+		<field name="internal_note" placeholder="Note interne"/>
+	    <field name="children_count"/>
+      </xpath>
+    </field>	
+  </record>
+</odoo>

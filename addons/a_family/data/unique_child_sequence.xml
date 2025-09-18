@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_unique_child" model="ir.sequence">
+        <field name="name">Unique Child Sequence</field>
+        <field name="code">unique.child</field>
+        <field name="prefix">CH-</field>
+        <field name="padding">5</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

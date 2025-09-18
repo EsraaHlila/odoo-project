@@ -1,0 +1,15 @@
+<odoo>
+    <template id="report_invoice_document_inherit_droit_timbre" inherit_id="account.report_invoice_document">
+        
+        <!-- Insert after tax groups table -->
+        <xpath expr="//t[@t-foreach='o.amount_by_group']" position="after">
+            <tr class="o_droit_de_timbre_row">
+                <td colspan="5" class="text-end"><strong>Droit de Timbre</strong></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre"/>
+                </td>
+            </tr>
+        </xpath>
+
+    </template>
+</odoo>

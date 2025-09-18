@@ -1,0 +1,12 @@
+<odoo>
+  <record id="view_forum_post_form_resolved" model="ir.ui.view">
+    <field name="name">forum.post.form.resolved</field>
+    <field name="model">forum.post</field>
+    <field name="inherit_id" ref="website_forum.forum_post_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='forum_id']" position="after">
+        <field name="resolved_status"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

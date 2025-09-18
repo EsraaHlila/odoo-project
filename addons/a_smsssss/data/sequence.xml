@@ -1,0 +1,10 @@
+<odoo>
+    <record id="seq_sms_textbee" model="ir.sequence">
+        <field name="name">SMS TextBee</field>
+        <field name="code">sms.textbee</field>
+        <field name="prefix">SMS</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

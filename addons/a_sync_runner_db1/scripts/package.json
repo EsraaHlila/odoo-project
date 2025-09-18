@@ -1,0 +1,21 @@
+{
+  "name": "odoo-supabase-sync",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node sync.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.36.0",
+    "axios": "^1.11.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.16.3"
+  },
+  "main": "sync1.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

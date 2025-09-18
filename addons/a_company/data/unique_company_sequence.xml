@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_unique_company" model="ir.sequence">
+        <field name="name">Unique Company Sequence</field>
+        <field name="code">unique.company</field>
+        <field name="prefix">COM-</field>
+        <field name="padding">5</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

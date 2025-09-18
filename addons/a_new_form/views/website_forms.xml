@@ -1,0 +1,84 @@
+<odoo>
+  <template id="opportunity_form_template">
+    <div class="container">
+      <h2>Create Opportunity</h2>
+      <form action="/crm/create" method="POST">
+        <p xml:space="preserve"><label> Your Name* </label></p>
+        <input type="text" name="name" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label>Email*      </label></p>
+        <input type="email" name="email_from" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label> Phone*     </label></p>
+        <input type="text" name="phone" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label>Company*      </label></p>
+        <input type="text" name="company" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label>Subject*      </label></p>
+        <input type="text" name="subject" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label>Questions*      </label></p>
+        <textarea name="questions"></textarea>
+        <br/>
+        <br/>
+        <button type="submit" style="border-radius: 15px; background-color:purple; color:white; width: 90px; height: 40px;">Submit</button>
+      </form>
+    </div>
+  </template>
+
+  <template id="contact_form_template">
+    <div class="container">
+      <h2>Create Contact</h2>
+      <form action="/contact/create" method="POST">
+        <p xml:space="preserve"><label> Your Name* </label></p>
+        <input type="text" name="name" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label> Email*    </label></p>
+        <input type="email" name="email" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label> Phone*    </label></p>
+        <input type="text" name="phone" required="required"/>
+        <br/>
+        <br/>
+<!--        <p xml:space="preserve"><label>Company*      </label></p>
+        <input type="text" name="company" required="required"/>
+        <br/>
+        <br/>-->
+        <p xml:space="preserve"><label>Subject*      </label></p>
+        <input type="text" name="subject" required="required"/>
+        <br/>
+        <br/>
+        <p xml:space="preserve"><label>Questions*      </label></p>
+        <textarea name="questions"> </textarea>
+        <br/>
+        <br/>
+        <button type="submit" style="border-radius: 15px; background-color:purple; color:white; width: 90px; height: 40px;">Submit</button>
+      </form>
+    </div>
+  </template>
+
+  <template id="view_opportunity_form_page" name="Opportunity Form Page">
+    <t t-call="website.layout">
+      <div class="container">
+        <t t-call="a_new_form.opportunity_form_template"/>
+      </div>
+    </t>
+  </template>
+
+  <template id="view_contact_form_page" name="Contact Form Page">
+    <t t-call="website.layout">
+      <div class="container">
+        <t t-call="a_new_form.contact_form_template"/>
+      </div>
+    </t>
+  </template>
+</odoo>
+

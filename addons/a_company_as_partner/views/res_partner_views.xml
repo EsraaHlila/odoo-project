@@ -1,0 +1,62 @@
+<odoo>
+  <!-- List View (Companies only) -->
+  <record id="view_app_user_list" model="ir.ui.view">
+    <field name="name">res.partner.list</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name"/>
+        <field name="email"/>
+        <field name="phone"/>
+        <field name="active"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form View (Inherited from base) -->
+  <record id="view_app_user_form" model="ir.ui.view">
+    <field name="name">res.partner.form.company</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <!-- Force company type -->
+      <xpath expr="//field[@name='company_type']" position="attributes">
+        <attribute name="invisible">1</attribute>
+        <attribute name="force_save">1</attribute>
+        <attribute name="value">company</attribute>
+      </xpath>
+      
+    </field>
+  </record>
+
+	<record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.company_type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Force company_type to "person" -->
+            <field name="company_type" position="attributes">
+                <attribute name="value">company</attribute>
+            </field>
+        </field>
+    </record>
+
+
+  <!-- Action to open the view (Companies only) -->
+  <record id="action_app_user" model="ir.actions.act_window">
+    <field name="name">Companies</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('company_type','=','company')]</field>
+    <field name="context">
+      {'default_company_type': 'company'}
+    </field>
+  </record>
+
+  <!-- Menu structure -->
+  <menuitem id="menu_app_user_root" name="Companies" sequence="10"/>
+  <menuitem id="menu_app_user"
+            name="Manage Companies"
+            parent="menu_app_user_root"
+            action="action_app_user"/>
+</odoo>

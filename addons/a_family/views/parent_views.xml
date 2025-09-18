@@ -1,0 +1,168 @@
+<odoo>
+    <!-- Search View -->
+    <record id="unique_parent_search_view" model="ir.ui.view">
+        <field name="name">unique.parent.search</field>
+        <field name="model">unique.parent</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search fields -->
+                <field name="first_name" string="First Name"/>
+                <field name="last_name" string="Last Name"/>
+                <field name="full_name" string="Full Name"/>
+                <field name="address" string="Address"/>
+                <field name="code" string="Code"/>
+                
+                <!-- Gender filters -->
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                
+                <!-- Active status filters -->
+                <filter name="filter_active" string="Active" domain="[('activee','=',True)]"/>
+                <filter name="filter_inactive" string="Inactive" domain="[('activee','=',False)]"/>
+                
+                <!-- Age filters - FIXED: Use &amp;lt; and &amp;gt; instead of < and > -->
+                <filter name="filter_age_under_30" string="Under 30" domain="[('age','&lt;',30)]"/>
+                <filter name="filter_age_30_40" string="30-40 Years" domain="[('age','&gt;=',30),('age','&lt;=',40)]"/>
+                <filter name="filter_age_41_50" string="41-50 Years" domain="[('age','&gt;=',41),('age','&lt;=',50)]"/>
+                <filter name="filter_age_over_50" string="Over 50" domain="[('age','&gt;',50)]"/>
+                
+                <!-- Children count filters - FIXED: Use &amp;lt; and &amp;gt; instead of < and > -->
+                <filter name="filter_no_children" string="No Children" domain="[('children_count','=',0)]"/>
+                <filter name="filter_has_children" string="Has Children" domain="[('children_count','&gt;',0)]"/>
+                <filter name="filter_1_2_children" string="1-2 Children" domain="[('children_count','&gt;=',1),('children_count','&lt;=',2)]"/>
+                <filter name="filter_3plus_children" string="3+ Children" domain="[('children_count','&gt;=',3)]"/>
+                
+                <!-- Group By filters -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}"/>
+                    <filter name="group_by_active" string="Active Status" context="{'group_by': 'activee'}"/>
+                    <filter name="group_by_age" string="Age Group" context="{'group_by': 'age'}"/>
+                    <filter name="group_by_children_count" string="Children Count" context="{'group_by': 'children_count'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="a_family_unique_parent_tree_view" model="ir.ui.view">
+        <field name="name">unique.parent.tree</field>
+        <field name="model">unique.parent</field>
+        <field name="arch" type="xml">
+            <list>
+				<field name="id"/>
+				<field name="supabase_id"/>
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="full_name"/>
+                <field name="birth_date"/>
+                <field name="age" widget="integer"/>
+				<field name="phone"/>
+                <field name="address"/>
+				<field name="email"/>
+                <field name="children_count" widget="integer"/>
+				<field name="lead_state"/>
+                <field name="gender" widget="selection"/>
+                <field name="activee" widget="boolean"/>
+                <field name="child_id" widget="many2many_tags"/>
+				<field name="create_date"/>
+				<field name="write_date"/>
+                <field name="code"/>
+				
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="a_family_unique_parent_form_view" model="ir.ui.view">
+        <field name="name">unique.parent.form</field>
+        <field name="model">unique.parent</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+						<field name="id"/>
+						<field name="supabase_id"/>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="full_name" readonly="1"/>
+                        <field name="birth_date"/>
+                        <field name="age" readonly="1" widget="integer"/>
+						<field name="phone"/>
+                        <field name="address"/>
+						<field name="email"/>
+                        <field name="children_count" widget="integer"/>
+						<field name="lead_state" widget="radio"/>
+                        <field name="gender" widget="radio"/>
+                        <field name="activee" widget="boolean"/>
+                        <field name="child_id" widget="many2many_tags"/>
+						<field name="create_date"/>
+						<field name="write_date"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View - Enhanced with Age -->
+    <!-- Graph: X axis = gender, series = children_count_group (0,1,2,3+) -->
+	<record id="a_family_unique_parent_graph_view" model="ir.ui.view">
+		<field name="name">unique.parent.graph</field>
+		<field name="model">unique.parent</field>
+		<field name="arch" type="xml">
+			<graph string="Parents Analysis" type="bar" stacked="true">
+			<!-- X-axis always gender -->
+				<field name="gender" type="row"/>
+			<!-- Split series by number of children -->
+				<field name="children_count" type="col"/>
+			<!-- Measures: default is count of parents; avg age available in dropdown -->
+				<field name="id" type="measure" operator="count" string="Parents Count"/>
+				<field name="age" type="measure" operator="avg" string="Average Age"/>
+			</graph>
+		</field>
+	</record>
+
+
+
+    <!-- Pivot View - Enhanced with Age -->
+    <record id="a_family_unique_parent_pivot_view" model="ir.ui.view">
+		<field name="name">unique.parent.pivot</field>
+		<field name="model">unique.parent</field>
+		<field name="arch" type="xml">
+			<pivot string="Parents Pivot">
+				<!-- Rows -->
+				<field name="gender" type="row"/>
+				<field name="age" type="row"/>
+				<field name="children_count" type="row"/>
+				<field name="active_display" type="row"/>
+            
+				<!-- Columns -->
+				<field name="gender" type="col"/>
+				<field name="age" type="col"/>
+				<field name="active_display" type="col"/>
+				
+				<!-- Measures -->
+				<field name="children_count" type="measure" string="Total Children"/>
+				<field name="age" type="measure" string="Average Age"/>
+				<field name="id" type="measure" string="Count Parents"/>
+			</pivot>
+		</field>
+	</record>
+
+
+    <!-- Action - Updated with search view -->
+    <record id="a_family_unique_parent_action" model="ir.actions.act_window">
+        <field name="name">Parents</field>
+        <field name="res_model">unique.parent</field>
+        <field name="view_mode">list,form,kanban,graph</field>
+        <field name="search_view_id" ref="unique_parent_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first parent</p>
+        </field>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+
+    <!-- Menu -->
+    <!--<menuitem id="a_family_unique_menu_parent_main" name="Parents"
+        action="a_family_unique_parent_action" sequence="11"/>-->
+</odoo>

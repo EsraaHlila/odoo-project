@@ -1,0 +1,137 @@
+<odoo>
+    <!-- Search View -->
+    <record id="unique_payment_search_view" model="ir.ui.view">
+        <field name="name">unique.payment.search</field>
+        <field name="model">unique.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search fields -->
+                <field name="parent_name" string="Parent Name"/>
+                <field name="parent_phone" string="Phone"/>
+                <field name="code" string="Payment Code"/>
+                
+                <!-- Payment Type filters -->
+                <filter name="filter_online" string="Online Payments" domain="[('payment_type','=','online')]"/>
+                <filter name="filter_cash" string="Cash Payments" domain="[('payment_type','=','cash')]"/>
+                
+                <!-- Status filters -->
+                <filter name="filter_completed" string="Completed Payments" domain="[('status','=','done')]"/>
+                <filter name="filter_draft" string="Draft Payments" domain="[('status','=','draft')]"/>
+                
+                <!-- Group By filters -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_payment_type" string="Payment Type" context="{'group_by': 'payment_type'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_amount" string="Amount Range" context="{'group_by': 'amount'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="unique_payment_tree_view" model="ir.ui.view">
+        <field name="name">unique.payment.tree</field>
+        <field name="model">unique.payment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="parent_name"/>
+                <field name="parent_phone"/>
+                <field name="billing_address"/>
+                <field name="payment_type"/>
+				<field name="discount_code"/>
+                <field name="code"/>
+                <field name="amount"/>
+                <field name="status"/>
+				<field name="create_date"/>
+				<field name="write_date"/>
+				<field name="package_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="unique_payment_form_view" model="ir.ui.view">
+        <field name="name">unique.payment.form</field>
+        <field name="model">unique.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="parent_name"/>
+                        <field name="parent_phone"/>
+                        <field name="billing_address"/>
+                        <field name="payment_type" widget="radio"/>
+						<field name="discount_code"/>
+                        <field name="code"/>
+                        <field name="amount"/>
+                        <field name="status" widget="radio"/>
+						<field name="create_date"/>
+						<field name="write_date"/>
+						<field name="package_id" widget="Many2one"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View - Enhanced -->
+    <record id="unique_payment_graph_view" model="ir.ui.view">
+        <field name="name">unique.payment.graph</field>
+        <field name="model">unique.payment</field>
+        <field name="arch" type="xml">
+            <graph string="Payments Analysis" type="bar">
+                <!-- Payment Type analysis -->
+                <field name="payment_type" type="row"/>
+                <field name="status" type="col"/>
+                
+                <!-- Status analysis -->
+                <field name="status" type="row"/>
+                <field name="payment_type" type="col"/>
+                
+                <!-- Amount analysis -->
+                <field name="amount" type="row" interval="100"/>
+                
+                <!-- Measures -->
+                <field name="amount" type="measure" string="Total Amount"/>
+                <field name="id" type="measure" string="Number of Payments"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View - Enhanced -->
+    <record id="unique_payment_pivot_view" model="ir.ui.view">
+        <field name="name">unique.payment.pivot</field>
+        <field name="model">unique.payment</field>
+        <field name="arch" type="xml">
+            <pivot string="Payments Pivot">
+                <!-- Rows -->
+                <field name="payment_type" type="row"/>
+                <field name="status" type="row"/>
+                
+                <!-- Columns -->
+                <field name="status" type="col"/>
+                <field name="payment_type" type="col"/>
+                
+                <!-- Measures -->
+                <field name="amount" type="measure" string="Total Amount"/>
+                <field name="id" type="measure" string="Count"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action - Updated with search view -->
+    <record id="unique_payment_action" model="ir.actions.act_window">
+        <field name="name">Payments</field>
+        <field name="res_model">unique.payment</field>
+        <field name="view_mode">list,form,kanban,graph</field>
+        <field name="search_view_id" ref="unique_payment_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first payment</p>
+        </field>
+        <field name="context">{'search_default_filter_completed': 1}</field>
+    </record>
+
+    <!-- Menu Item -->
+<!--    <menuitem id="unique_payment_menu_root" name="Payments"/>
+    <menuitem id="unique_payment_menu" name="Payments" parent="unique_payment_menu_root" action="unique_payment_action"/>-->
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_sms" model="ir.ui.view">
+        <field name="name">res.config.settings.sms.integration</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Simple text link without action reference -->
+            <xpath expr="//div[hasclass('settings')]//div[hasclass('o_setting_container')]" position="inside">
+                <div class="row mt16" name="sms_settings">
+                    <h2>SMS Settings</h2>
+                    <div class="col-12 mt-3">
+                        <p>Configure TextBee SMS in: <strong>Settings → Technical → TextBee SMS</strong></p>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

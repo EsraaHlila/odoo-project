@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sms_simple" model="ir.actions.act_window">
+        <field name="name">Send SMS</field>
+        <field name="res_model">sms.simple</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sms_simple"
+              name="SMS Sender"
+              parent="base.menu_administration"
+              action="action_sms_simple"
+              sequence="120"/>
+
+    <record id="view_sms_simple_form" model="ir.ui.view">
+        <field name="name">sms.simple.form</field>
+        <field name="model">sms.simple</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="SMS Details">
+                        <field name="numbers" placeholder="Enter phone numbers, one per line&#10;+1234567890&#10;+0987654321" nolabel="1"/>
+                        <field name="message" placeholder="Type your message here..." nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_send_sms" string="Send SMS" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

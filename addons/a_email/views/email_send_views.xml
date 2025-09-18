@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_email_send_tree" model="ir.ui.view">
+        <field name="name">email.send.tree</field>
+        <field name="model">email.send</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="subject"/>
+                <field name="status"/>
+                <field name="sent_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_email_send_form" model="ir.ui.view">
+        <field name="name">email.send.form</field>
+        <field name="model">email.send</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_email" type="object" string="Send Email" 
+                            class="btn-primary" invisible="status == 'sent'"/>
+                    <field name="status" widget="statusbar" options="{'clickable': True}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="status" readonly="1"/>
+                            <field name="sent_date" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Recipients">
+                        <field name="partner_recipients" widget="many2many_tags"/>
+						<button name="action_load_all_partners" type="object" string="Select All Partners" class="oe_highlight"/>
+						<field name="company_recipients" widget="many2many_tags"/>
+						<button name="action_load_all_companies" type="object" string="Select All Companies" class="oe_highlight"/>
+                        <field name="recipient_emails" placeholder="test1@example.com, test2@example.com&#10;test3@example.com" />
+                    </group>
+                    
+                    <group string="Email Content">
+                        <field name="subject"/>
+                        <field name="body"/>
+                    </group>
+                    
+                    <group string="System Response" invisible="status == 'draft'">
+                        <field name="response_data" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_email_send" model="ir.actions.act_window">
+        <field name="name">Send Email</field>
+        <field name="res_model">email.send</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_email_send_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Send Emails via Odoo Mail Server
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_email_send_root" name="Email Integration" action="action_email_send" sequence="80"/>
+
+</odoo>

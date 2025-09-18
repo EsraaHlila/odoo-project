@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_partner_form_inherited_custom" model="ir.ui.view">
+        <field name="name">res.partner.form.custom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Contact Responsable">
+                    <field name="contact_name"/>
+                    <field name="contact_email"/>
+                    <field name="contact_phone"/>
+                    <field name="contact_function"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,153 @@
+<odoo>
+    <!-- Search View -->
+    <record id="unique_company_search_view" model="ir.ui.view">
+        <field name="name">unique.company.search</field>
+        <field name="model">unique.company</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search fields -->
+                <field name="name" string="Company Name"/>
+                <field name="owner" string="Contact"/>
+                <field name="code" string="Code"/>
+                
+                <!-- Lead State filters -->
+                <filter name="filter_lead_active" string="Active" domain="[('lead_state','=','active')]"/>
+                <filter name="filter_lead_inactive" string="Inactive" domain="[('lead_state','=','inactive')]"/>
+                <filter name="filter_lead_prospect" string="Prospect" domain="[('lead_state','=','prospect')]"/>
+                <filter name="filter_lead_customer" string="Customer" domain="[('lead_state','=','customer')]"/>
+                <filter name="filter_lead_lost" string="Lost" domain="[('lead_state','=','lost')]"/>
+                
+                <!-- Last Activity Date filters -->
+				<filter name="filter_activity_this_week" string="Activity This Week"
+					domain="[('last_activity_date','&gt;=', (context_today() - relativedelta(days=7)))]"/>
+
+				<filter name="filter_activity_this_month" string="Activity This Month"
+					domain="[('last_activity_date','&gt;=', (context_today() - relativedelta(days=30)))]"/>
+
+				<filter name="filter_activity_older_30" string="Older than 30 Days"
+					domain="[('last_activity_date','&lt;', (context_today() - relativedelta(days=30)))]"/>
+
+				<filter name="filter_activity_older_90" string="Older than 90 Days"
+					domain="[('last_activity_date','&lt;', (context_today() - relativedelta(days=90)))]"/>
+
+
+                
+                <!-- Days since activity filters -->
+                <filter name="filter_days_7" string="Last 7 Days" domain="[('days_since_last_activity','&lt;=',7)]"/>
+                <filter name="filter_days_30" string="Last 30 Days" domain="[('days_since_last_activity','&lt;=',30)]"/>
+                <filter name="filter_days_90" string="Last 90 Days" domain="[('days_since_last_activity','&lt;=',90)]"/>
+                <filter name="filter_days_over_90" string="Over 90 Days" domain="[('days_since_last_activity','&gt;',90)]"/>
+                
+                <!-- Group By filters -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_lead_state" string="Lead State" context="{'group_by': 'lead_state'}"/>
+                    <filter name="group_by_activity_days" string="Days Since Activity" context="{'group_by': 'days_since_last_activity'}"/>
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="unique_company_tree_view" model="ir.ui.view">
+        <field name="name">unique.company.tree</field>
+        <field name="model">unique.company</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="owner"/>
+                <field name="last_activity_date"/>
+                <field name="days_since_last_activity" widget="integer"/>
+				<field name="phone"/>
+				<field name="email"/>
+                <field name="lead_state" widget="selection"/>
+				<field name="create_date"/>
+				<field name="write_date"/>
+                <field name="code"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="unique_company_form_view" model="ir.ui.view">
+        <field name="name">unique.company.form</field>
+        <field name="model">unique.company</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="owner"/>
+                        <field name="last_activity_date"/>
+                        <field name="days_since_last_activity" readonly="1" widget="integer"/>
+						<field name="phone"/>
+						<field name="email"/>
+                        <field name="lead_state" widget="radio"/>
+						<field name="create_date"/>
+						<field name="write_date"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="unique_company_graph_view" model="ir.ui.view">
+        <field name="name">unique.company.graph</field>
+        <field name="model">unique.company</field>
+        <field name="arch" type="xml">
+            <graph string="Companies Analysis" type="bar">
+                <!-- Lead State analysis -->
+                <field name="lead_state" type="row"/>
+                <field name="days_since_last_activity" type="col"/>
+                
+                <!-- Activity analysis -->
+                <field name="days_since_last_activity" type="row"/>
+                <field name="lead_state" type="col"/>
+                
+                <!-- Measures -->
+                <field name="id" type="measure" string="Number of Companies"/>
+                <field name="days_since_last_activity" type="measure" string="Avg Days Since Activity"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="unique_company_pivot_view" model="ir.ui.view">
+        <field name="name">unique.company.pivot</field>
+        <field name="model">unique.company</field>
+        <field name="arch" type="xml">
+            <pivot string="Companies Pivot">
+                <!-- Rows -->
+                <field name="lead_state" type="row"/>
+                <field name="days_since_last_activity" type="row"/>
+                <field name="owner" type="row"/>
+                
+                <!-- Columns -->
+                <field name="lead_state" type="col"/>
+                <field name="days_since_last_activity" type="col"/>
+                
+                <!-- Measures -->
+                <field name="id" type="measure" string="Count Companies"/>
+                <field name="days_since_last_activity" type="measure" string="Avg Days Since Activity"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action - Updated with search view and graph/pivot -->
+    <record id="unique_company_action" model="ir.actions.act_window">
+        <field name="name">Companies</field>
+        <field name="res_model">unique.company</field>
+        <field name="view_mode">list,form,kanban,graph</field>
+        <field name="search_view_id" ref="unique_company_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first company</p>
+        </field>
+        <field name="context">{'search_default_filter_lead_prospect': 1}</field>
+    </record>
+
+    <!-- Menu Item -->
+    <!--<menuitem id="unique_company_menu_root" name="Companies"/>
+    <menuitem id="unique_company_menu" name="Companies" parent="unique_company_menu_root" action="unique_company_action"/> -->
+</odoo>

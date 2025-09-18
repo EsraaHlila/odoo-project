@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action for Contacts -->
+    <record id="action_test_contacts" model="ir.actions.act_window">
+        <field name="name">Test Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_test_root" name="Test Menu" sequence="10"/>
+    
+    <!-- Submenu -->
+    <menuitem id="menu_test_contacts" 
+              name="Test Contacts" 
+              parent="menu_test_root"
+              action="action_test_contacts"
+              sequence="10"/>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add Send SMS button to unique.parent form view -->
+    <record id="view_unique_parent_form_inherit_sms" model="ir.ui.view">
+        <field name="name">unique.parent.form.inherit.sms</field>
+        <field name="model">unique.parent</field>
+        <field name="inherit_id" ref="unique_parent.view_unique_parent_form"/>
+        <field name="arch" type="xml">
+            <!-- Add button to form header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_send_sms"
+                        string="Send SMS"
+                        type="object"
+                        class="btn-primary"
+                        groups="base.group_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add Send SMS action to unique.parent tree view for mass messaging -->
+    <record id="view_unique_parent_tree_inherit_sms" model="ir.ui.view">
+        <field name="name">unique.parent.tree.inherit.sms</field>
+        <field name="model">unique.parent</field>
+        <field name="inherit_id" ref="unique_parent.view_unique_parent_tree"/>
+        <field name="arch" type="xml">
+            <!-- Add button to tree view -->
+            <xpath expr="//tree" position="before">
+                <header>
+                    <button name="action_send_mass_sms"
+                            string="Send Mass SMS"
+                            type="object"
+                            class="btn-primary"
+                            groups="base.group_user"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,62 @@
+<odoo>
+    <!-- Welcome email on new lead -->
+    <record id="mail_template_lead_welcome" model="mail.template">
+        <field name="name">Lead Welcome (DM)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Welcome to DM Nova / Khotoua</field>
+        <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) if object.user_id else user.email_formatted}</field>
+        <field name="email_to">
+            <![CDATA[
+            ${object.email_from or (object.partner_id and object.partner_id.email) or ''}
+            ]]>
+        </field>
+        <field name="body_html" type="html">
+            <![CDATA[
+            <p>Hello ${object.contact_name or object.partner_name or 'there'},</p>
+            <p>Thanks for your interest! Our team will reach out shortly.</p>
+            <p>— DM Nova / Khotoua</p>
+            ]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- Inactivity reminder -->
+    <record id="mail_template_lead_inactivity" model="mail.template">
+        <field name="name">Lead Inactivity Reminder (DM)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Still interested? Quick follow-up</field>
+        <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) if object.user_id else user.email_formatted}</field>
+        <field name="email_to">
+            <![CDATA[
+            ${object.email_from or (object.partner_id and object.partner_id.email) or ''}
+            ]]>
+        </field>
+        <field name="body_html" type="html">
+            <![CDATA[
+            <p>Hi ${object.contact_name or object.partner_name or 'there'},</p>
+            <p>We noticed no recent activity. Can we help you with anything?</p>
+            <p>Reply to this email and we’ll assist immediately.</p>
+            <p>— Your CRM Team</p>
+            ]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- Campaign announcement (sends to res.partner) -->
+    <record id="mail_template_campaign_announcement" model="mail.template">
+        <field name="name">Campaign Announcement (All Contacts)</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">New Campaign: ${ctx.get('campaign_name') or 'Our latest updates'}</field>
+        <field name="email_from">${user.email_formatted}</field>
+        <field name="email_to">${object.email or ''}</field>
+        <field name="body_html" type="html">
+            <![CDATA[
+            <p>Hello ${object.name or 'there'},</p>
+            <p>We’ve launched a new campaign: <strong>${ctx.get('campaign_name') or 'New Campaign'}</strong>.</p>
+            <p>Stay tuned for details and special offers!</p>
+            <p>— DM Nova / Khotoua</p>
+            ]]>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

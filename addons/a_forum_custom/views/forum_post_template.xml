@@ -1,0 +1,12 @@
+<odoo>
+  <template id="forum_post_resolved_status" inherit_id="website_forum.post">
+    <xpath expr="//div[@class='o_forum_post_header']" position="inside">
+      <t t-if="post.resolved_status == 'resolu'">
+        <span class="badge bg-success"> Résolu</span>
+      </t>
+      <t t-if="post.resolved_status == 'non_resolu'">
+        <span class="badge bg-warning"> Non Résolu</span>
+      </t>
+    </xpath>
+  </template>
+</odoo>

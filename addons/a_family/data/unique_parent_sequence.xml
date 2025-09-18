@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_unique_parent" model="ir.sequence">
+        <field name="name">Unique Parent Sequence</field>
+        <field name="code">unique.parent</field>
+        <field name="prefix">PAR-</field>
+        <field name="padding">5</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

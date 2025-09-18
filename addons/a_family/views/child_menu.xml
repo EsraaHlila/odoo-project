@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="unique_menu_child_main"
+              name="Children"
+              action="a_family.a_family_unique_child_action"
+              sequence="11"/>
+</odoo>

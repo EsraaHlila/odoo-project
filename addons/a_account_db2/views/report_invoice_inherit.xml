@@ -1,0 +1,11 @@
+<odoo>
+    <template id="report_invoice_document_inherit_parent" inherit_id="account.report_invoice_document">
+        <!-- Replace customer name/address in the PDF header -->
+        <xpath expr="//address[@t-field='o.partner_id']" position="replace">
+            <address>
+                <!-- Show x_parent_id instead of partner -->
+                <span t-field="o.x_parent_id" t-options="{'widget': 'many2one'}"/>
+            </address>
+        </xpath>
+    </template>
+</odoo>

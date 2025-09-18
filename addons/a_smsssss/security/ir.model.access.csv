@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sms_textbee_user,sms.textbee user,model_sms_textbee,,1,1,1,1

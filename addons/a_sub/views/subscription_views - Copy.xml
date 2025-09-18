@@ -1,0 +1,146 @@
+<odoo>
+    <!-- Search View -->
+    <record id="unique_subscription_search_view" model="ir.ui.view">
+        <field name="name">unique.subscription.search</field>
+        <field name="model">unique.subscription</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search fields -->
+                <field name="parent_first_name"/>
+                <field name="parent_last_name"/>
+                <field name="child_first_name"/>
+                <field name="child_last_name"/>
+                <field name="ref"/>
+            
+                <!-- Filters -->
+                <filter name="active_subs" string="Active" domain="[('activee','=',True)]"/>
+                <filter name="inactive_subs" string="Inactive" domain="[('activee','=',False)]"/>
+            
+                <filter name="parent_male" string="Parent Male" domain="[('gender','=','male')]"/>
+                <filter name="parent_female" string="Parent Female" domain="[('gender','=','female')]"/>
+            
+                <filter name="child_male" string="Child Male" domain="[('child_gender','=','male')]"/>
+                <filter name="child_female" string="Child Female" domain="[('child_gender','=','female')]"/>
+            
+                <!-- Group By -->
+                <group expand="0" string="Group By">
+                    <filter name="group_active" string="By Active Status" context="{'group_by': 'activee'}"/>
+                    <filter name="group_gender" string="By Parent Gender" context="{'group_by': 'gender'}"/>
+                    <filter name="group_child_gender" string="By Child Gender" context="{'group_by': 'child_gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="unique_subscription_tree_view" model="ir.ui.view">
+        <field name="name">unique.subscription.tree</field>
+        <field name="model">unique.subscription</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="parent_first_name"/>
+                <field name="parent_last_name"/>
+                <field name="birth_date"/>
+                <field name="parent_age" widget="integer"/>
+                <field name="gender"/>
+                <field name="child_first_name"/>
+                <field name="child_last_name"/>
+                <field name="child_birth_date"/>
+                <field name="child_age" widget="integer"/>
+                <field name="child_gender"/>
+                <field name="activee" widget="boolean"/>
+                <field name="ref"/>
+                <field name="sale_order_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="unique_subscription_form_view" model="ir.ui.view">
+        <field name="name">unique.subscription.form</field>
+        <field name="model">unique.subscription</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="parent_first_name"/>
+                        <field name="parent_last_name"/>
+                        <field name="birth_date"/>
+                        <field name="parent_age" readonly="1" widget="integer"/>
+                        <field name="gender" widget="selection"/>
+                        <field name="child_first_name"/>
+                        <field name="child_last_name"/>
+                        <field name="child_birth_date"/>
+                        <field name="child_age" readonly="1" widget="integer"/>
+                        <field name="child_gender" widget="selection"/>
+                        <field name="activee" widget="boolean"/>
+                        <field name="ref"/>
+                        <field name="sale_order_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+<!-- Graph View - UPDATED with all filter fields -->
+	<record id="unique_subscription_graph_view" model="ir.ui.view">
+		<field name="name">unique.subscription.graph</field>
+		<field name="model">unique.subscription</field>
+		<field name="arch" type="xml">
+			<graph string="Subscriptions Analysis" type="bar">
+				<!-- Row fields (X-axis) -->
+				<field name="parent_age" type="row"/>
+				<field name="child_age" type="row"/>
+				<field name="gender" type="row"/>
+				<field name="child_gender" type="row"/>
+				<field name="activee" type="row"/>
+            
+				<!-- Column fields (grouping) -->
+				<field name="activee" type="col"/>
+				<field name="gender" type="col"/>
+				<field name="child_gender" type="col"/>
+				<field name="parent_age" type="col"/>
+				<field name="child_age" type="col"/>
+            
+				<!-- Measure fields (Y-axis) -->
+				<field name="id" type="measure" string="Count"/>
+				<field name="parent_age" type="measure" string="Avg Parent Age"/>
+				<field name="child_age" type="measure" string="Avg Child Age"/>
+			</graph>
+		</field>
+	</record>
+
+    <!-- Pivot View -->
+    <record id="unique_subscription_pivot_view" model="ir.ui.view">
+        <field name="name">unique.subscription.pivot</field>
+        <field name="model">unique.subscription</field>
+        <field name="arch" type="xml">
+            <pivot string="Subscriptions Pivot">
+                <field name="gender" type="row"/>
+                <field name="child_gender" type="col"/>
+                <field name="id" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="unique_subscription_action" model="ir.actions.act_window">
+        <field name="name">Subscriptions</field>
+        <field name="res_model">unique.subscription</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="search_view_id" ref="unique_subscription_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first subscription</p>
+        </field>
+        <!-- Default filter applied -->
+        <field name="context">{'search_default_active_subs': 1}</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="unique_subscription_menu_root" name="Subscriptions"/>
+    <menuitem id="unique_subscription_menu"
+              name="Subscriptions"
+              parent="unique_subscription_menu_root"
+              action="unique_subscription_action"/>
+</odoo>

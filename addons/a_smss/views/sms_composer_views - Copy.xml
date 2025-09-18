@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action for SMS Composer -->
+    <record id="action_sms_composer" model="ir.actions.act_window">
+        <field name="name">Send SMS</field>
+        <field name="res_model">sms.composer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- <field name="view_id" ref="view_sms_composer_form"/> -->
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_sms_composer"
+              name="SMS Composer"
+              parent="base.menu_administration"
+              action="action_sms_composer"
+              sequence="110"/>
+
+    <!-- Form View -->
+    <record id="view_sms_composer_form" model="ir.ui.view">
+        <field name="name">sms.composer.form</field>
+        <field name="model">sms.composer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- <field name="name" placeholder="e.g., Marketing Campaign SMS"/> -->
+                            <field name="provider_id" required="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Message">
+                        <field name="recipient_numbers" placeholder="Enter phone numbers, one per line&#10;+1234567890&#10;+0987654321" nolabel="1"/>
+                        <field name="message" placeholder="Type your message here..." nolabel="1"/>
+                    </group>
+                    
+                    <footer>
+                        <button name="action_send_sms"
+                                string="Send SMS"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

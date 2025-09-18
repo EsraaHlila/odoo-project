@@ -1,0 +1,153 @@
+<odoo>
+    <!-- Search View -->
+    <record id="unique_child_search_view" model="ir.ui.view">
+        <field name="name">unique.child.search</field>
+        <field name="model">unique.child</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search fields -->
+                <field name="first_name" string="First Name"/>
+                <field name="last_name" string="Last Name"/>
+                <field name="full_name" string="Full Name"/>
+                <field name="parent_id" string="Parent"/>
+                <field name="code" string="Code"/>
+                
+                <!-- Gender filters -->
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                
+                <!-- Age filters -->
+                <filter name="filter_age_under_5" string="Under 5" domain="[('age','&lt;',5)]"/>
+                <filter name="filter_age_5_10" string="5-10 Years" domain="[('age','&gt;=',5),('age','&lt;=',10)]"/>
+                <filter name="filter_age_11_15" string="11-15 Years" domain="[('age','&gt;=',11),('age','&lt;=',15)]"/>
+                <filter name="filter_age_over_15" string="Over 15" domain="[('age','&gt;',15)]"/>
+                
+                <!-- Moyenne filters - FIXED: Escape &lt; and &gt; in string attributes too -->
+                <filter name="filter_moyenne_under_10" string="Moyenne &lt; 10" domain="[('moyenne','&lt;',10)]"/>
+                <filter name="filter_moyenne_10_12" string="Moyenne 10-12" domain="[('moyenne','&gt;=',10),('moyenne','&lt;=',12)]"/>
+                <filter name="filter_moyenne_13_15" string="Moyenne 13-15" domain="[('moyenne','&gt;=',13),('moyenne','&lt;=',15)]"/>
+                <filter name="filter_moyenne_over_15" string="Moyenne &gt; 15" domain="[('moyenne','&gt;',15)]"/>
+                <filter name="filter_moyenne_excellent" string="Excellent (18+)" domain="[('moyenne','&gt;=',18)]"/>
+                
+                <!-- Group By filters -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}"/>
+                    <filter name="group_by_age" string="Age Group" context="{'group_by': 'age'}"/>
+                    <filter name="group_by_moyenne" string="Moyenne Range" context="{'group_by': 'moyenne'}"/>
+                    <filter name="group_by_parent" string="Parent" context="{'group_by': 'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="a_family_unique_child_tree_view" model="ir.ui.view">
+        <field name="name">unique.child.tree</field>
+        <field name="model">unique.child</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="full_name"/>
+                <field name="birth_date"/>
+                <field name="age" widget="integer"/>
+                <field name="moyenne" widget="float"/>
+                <field name="gender" widget="selection"/>
+				<field name="school"/>
+				<field name="niveauId"/>
+                <field name="parent_id"/>
+				<field name="create_date"/>
+				<field name="write_date"/>
+                <field name="code"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="a_family_unique_child_form_view" model="ir.ui.view">
+        <field name="name">unique.child.form</field>
+        <field name="model">unique.child</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="full_name" readonly="1"/>
+                        <field name="birth_date"/>
+                        <field name="age" readonly="1" widget="integer"/>
+                        <field name="moyenne" widget="float"/>
+                        <field name="gender" widget="radio"/>
+						<field name="school"/>
+						<field name="niveauId"/>
+                        <field name="parent_id"/>
+						<field name="create_date"/>
+						<field name="write_date"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View - Enhanced -->
+	<!-- Graph View -->
+	<record id="a_family_unique_child_graph_view" model="ir.ui.view">
+		<field name="name">unique.child.graph</field>
+		<field name="model">unique.child</field>
+		<field name="arch" type="xml">
+			<graph string="Children Analysis" type="bar">
+				<!-- Grouping fields -->
+				<field name="gender" type="row"/>
+				<field name="age" type="row"/>
+				<field name="moyenne" type="row"/>
+            
+				<!-- Measures -->
+				<field name="moyenne" type="measure" string="Average Moyenne"/>
+				<field name="age" type="measure" string="Average Age"/>
+				<field name="id" type="measure" string="Number of Children"/>
+			</graph>
+		</field>
+	</record>
+
+	<!-- Pivot View -->
+	<record id="a_family_unique_child_pivot_view" model="ir.ui.view">
+		<field name="name">unique.child.pivot</field>
+		<field name="model">unique.child</field>
+		<field name="arch" type="xml">
+			<pivot string="Children Pivot">
+				<!-- Rows -->
+				<field name="gender" type="row"/>
+				<field name="age" type="row"/>
+				<field name="moyenne" type="row"/>
+				<field name="parent_id" type="row"/>
+            
+				<!-- Columns -->
+				<field name="gender" type="col"/>
+				<field name="age" type="col"/>
+            
+				<!-- Measures -->
+				<field name="moyenne" type="measure" string="Average Moyenne"/>
+				<field name="age" type="measure" string="Average Age"/>
+				<field name="id" type="measure" string="Count Children"/>
+			</pivot>
+		</field>
+	</record>
+
+
+    <!-- Action - Updated with search view -->
+    <record id="a_family_unique_child_action" model="ir.actions.act_window">
+        <field name="name">Children</field>
+        <field name="res_model">unique.child</field>
+        <field name="view_mode">list,form,kanban,graph</field>
+        <field name="search_view_id" ref="unique_child_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first child</p>
+        </field>
+        <field name="context">{'search_default_filter_moyenne_excellent': 1}</field>
+    </record>
+
+    <!-- Menu -->
+    <!--<menuitem id="a_family_unique_menu_child_main" name="Children"
+        action="a_family_unique_child_action" sequence="12"/>-->
+</odoo>

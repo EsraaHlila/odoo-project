@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_unique_subscription_root"
+              name="Subscriptions"
+              sequence="10"
+			  action="a_sub.action_unique_subscription"
+              groups="base.group_user"/>
+
+    <!-- Menu item for opening subscriptions -->
+     <!--<menuitem id="menu_unique_subscription_list"
+              name="Manage Subscriptions"
+              parent="menu_unique_subscription_root"
+              action="a_sub.action_unique_subscription"
+              sequence="10"
+              groups="base.group_user"/>-->
+
+    <!-- Menu item for Sync All -->
+   <!-- <menuitem id="menu_sync_all_subscriptions"
+              name="Sync All Subscriptions"
+              parent="menu_unique_subscription_root"
+              action="a_sub.action_sync_all_subscriptions"
+              sequence="20"
+              groups="base.group_user"/> -->
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+    <record id="seq_unique_package" model="ir.sequence">
+        <field name="name">Unique Package Sequence</field>
+        <field name="code">unique.package</field>
+        <field name="prefix">PACK-</field>
+        <field name="padding">5</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

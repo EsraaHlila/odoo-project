@@ -1,0 +1,49 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="unique_child_tree_view" model="ir.ui.view">
+        <field name="name">unique.child.tree</field>
+        <field name="model">unique.child</field>
+        <field name="arch" type="xml">
+            <list>
+				<field name="first_name"/>
+				<field name="last_name"/>
+				<field name="birth_date"/>
+				<field name="moyenne"/>
+				<field name="gender"/>
+				<field name="parent_id"/>
+				<field name="code"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="unique_child_form_view" model="ir.ui.view">
+        <field name="name">unique.child.form</field>
+        <field name="model">unique.child</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+						<field name="first_name"/>
+						<field name="last_name"/>
+						<field name="birth_date"/>
+						<field name="moyenne"/>
+						<field name="gender"/>
+						<field name="parent_id"/>
+						<field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="unique_child_action" model="ir.actions.act_window">
+        <field name="name">Children</field>
+        <field name="res_model">unique.child</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first child</p>
+        </field>
+    </record>
+</odoo>

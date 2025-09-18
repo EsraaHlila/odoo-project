@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Add fields after the 'name' field -->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="example_field1"/>
+                <field name="example_selection"/>
+            </xpath>
+            
+            <!-- Add fields to a new tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Custom Tab">
+                    <group>
+                        <field name="example_field2"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

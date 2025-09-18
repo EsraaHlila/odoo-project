@@ -1,0 +1,106 @@
+<!--<odoo>
+    <template id="document_tax_totals_inherit_droit_timbre" inherit_id="account.document_tax_totals_template">
+
+        <xpath expr="//tr[@class='o_total']" position="before">
+            <tr class="o_droit_de_timbre">
+                <td><span>Droit de Timbre</span></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
+
+<odoo>
+    <template id="document_tax_totals_inherit_droit_timbre"
+              inherit_id="account.document_tax_totals_template">
+
+        <xpath expr="//tr[@class='o_total']" position="before">
+            <tr class="o_droit_de_timbre">
+                <td><strong>Droit de Timbre</strong></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>-->
+
+
+
+
+
+
+
+
+
+
+<odoo>
+    <template id="document_tax_totals_inherit_droit_timbre" inherit_id="account.document_tax_totals_template">
+
+
+        <!--<xpath expr="//tr[@class='oe_total']" position="replace"/>-->
+
+        <xpath expr="//tr[@class='o_total']" position="before">
+            <tr class="o_droit_de_timbre">
+                <td><strong>Droit de Timbre</strong></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+
+
+        <!--<xpath expr="//tr[@class='o_total']" position="after">
+            <tr class="o_total">
+                <td><strong>Total TTC</strong></td>
+                <td class="text-end">
+                    <span t-field="o.amount_total_with_stamp"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>-->
+
+    </template>
+
+	
+
+    <!--<template id="report_invoice_hide_total" inherit_id="account.report_invoice_document">
+        <xpath expr="//tr[td/span[@t-field='doc.amount_total']]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>-->
+
+</odoo>
+
+
+<!--<odoo>
+    <template id="document_tax_totals_inherit_droit_timbre" inherit_id="account.document_tax_totals_template">
+		<xpath expr="//tr[@class='o_total']" position="replace"/>
+
+        <xpath expr="//tr[@class='o_total_with_taxes']" position="before">
+            <tr class="o_droit_de_timbre">
+                <td><strong>Droit de Timbre</strong></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+
+        <xpath expr="//tr[@class='o_total_with_taxes']" position="after">
+            <tr class="o_total_with_stamp">
+                <td><strong>Total TTC</strong></td>
+                <td class="text-end">
+                    <span t-field="o.amount_total_with_stamp"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+
+    </template>
+</odoo>-->
+

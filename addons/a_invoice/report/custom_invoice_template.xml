@@ -1,0 +1,65 @@
+<odoo>
+    <template id="custom_report_invoice_with_payments">
+        <t t-call="web.external_layout">
+            <main class="page">
+                <div class="o_invoice_report">
+                    <h1>Facture</h1>
+                    <p><strong>Numéro :</strong> <span t-field="doc.name"/></p>
+                    <p><strong>Date :</strong> <span t-field="doc.invoice_date"/></p>
+                    <p><strong>Client :</strong> <span t-field="doc.partner_id.display_name"/></p>
+
+                    <table class="table table-sm mt32">
+                        <thead>
+                            <tr>
+                                <th>Produit/Service</th>
+                                <th>Tarif</th>
+                                <th>Qté</th>
+                                <th>Montant HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                <td><span t-field="line.name"/></td>
+                                <td class="text-right"><span t-field="line.price_unit"/></td>
+                                <td class="text-right"><span t-field="line.quantity"/></td>
+                                <td class="text-right"><span t-field="line.price_subtotal"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="mt32"><strong>Sous Total :</strong> <span t-field="doc.amount_untaxed"/></p>
+                    <p><strong>TVA :</strong> <span t-field="doc.amount_tax"/></p>
+                    <p><strong>Total TTC :</strong> <span t-field="doc.amount_total"/></p>
+                    <p><strong>Droit du Timbre :</strong> 1 DT</p>
+
+                    <p><strong>Mode de paiement :</strong> Virement bancaire</p>
+                    <p><strong>Conditions :</strong> 30% avant démarrage + étapes selon plan</p>
+
+                    <p><strong>Coordonnées :</strong> SoftTech la pépinière, Novation City, Sousse, Tunisie - 4000</p>
+                    <p><strong>RIB :</strong> 00178-0081876781-1 TND</p>
+
+                    <t t-set="payments" t-value="doc.line_ids.filtered(lambda l: l.payment_id).mapped('payment_id')"/>
+                    <t t-if="payments">
+                        <h3 class="mt32">Paiements</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Référence</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="payments" t-as="pmt">
+                                    <td><span t-field="pmt.payment_date"/></td>
+                                    <td><span t-field="pmt.name"/></td>
+                                    <td class="text-right"><span t-field="pmt.amount"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

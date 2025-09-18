@@ -1,0 +1,13 @@
+<odoo>
+    <!-- Daily at 08:00 server time -->
+    <record id="ir_cron_dm_lead_inactivity" model="ir.cron">
+        <field name="name">DM CRM: Lead Inactivity Reminder</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_inactivity_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

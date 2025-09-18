@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_entreprise_form" model="ir.ui.view">
+        <field name="name">entreprise.entreprise.form</field>
+        <field name="model">entreprise.entreprise</field>
+        <field name="arch" type="xml">
+            <form string="Entreprise">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="secteur"/>
+                        <field name="nombre_employes"/>
+                        <field name="adresse"/>
+                        <field name="ville"/>
+                        <field name="pays"/>
+                    </group>
+                    <notebook>
+                        <page string="Contacts liés">
+                            <field name="contact_ids"> <!-- Assuming contact_ids is the one-to-many field pointing to related contacts -->
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="contact_function"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_entreprise" model="ir.actions.act_window">
+        <field name="name">Entreprises</field>
+        <field name="res_model">entreprise.entreprise</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_entreprise_root" name="Entreprises"/>
+    <menuitem id="menu_entreprise" name="Gestion des Entreprises" parent="menu_entreprise_root" action="action_entreprise"/>
+</odoo>
+

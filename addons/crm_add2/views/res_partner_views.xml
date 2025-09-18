@@ -1,0 +1,31 @@
+<odoo>
+    <record id="view_partner_form_inherit_support" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.support</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <!-- <field name="support_agent_id" invisible="is_company"/>
+                <field name="internal_note" placeholder="Note_interne"/>
+                <field name="children_count" invisible="is_company"/> -->
+				<!-- <field name="child_name" invisible="is_company"/>  -->
+				<!-- <field name="grade" invisible="is_company"/> -->
+				<!-- <field name="lead_state" invisible="is_company"/> -->
+				<!-- <field name="school" invisible="is_company"/> -->
+            </xpath>
+        </field>
+    </record>
+	
+	
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.company_type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Insert the field after the 'name' field, which is always there -->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="company_type" invisible="1" default="person"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

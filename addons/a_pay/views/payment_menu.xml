@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="unique_menu_payment_main"
+              name="Payments"
+              action="a_pay.unique_payment_action"
+              sequence="11"/>
+</odoo>

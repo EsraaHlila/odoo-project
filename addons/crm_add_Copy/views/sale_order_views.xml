@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Add the custom 'order_tag' field to the sale order form -->
+  <record id="view_order_form_inherit_order_status" model="ir.ui.view">
+    <field name="name">sale.order.form.inherit.order_status</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='client_order_ref']" position="after">
+        <field name="order_status"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Show the 'discount' field inside the order lines tree view -->
+  <record id="view_order_line_tree_inherit_discount" model="ir.ui.view">
+    <field name="name">sale.order.line.tree.inherit.discount</field>
+    <field name="model">sale.order.line</field>
+    <field name="inherit_id" ref="sale.view_order_line_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='name']" position="after">
+        <field name="discount"/>
+      </xpath>
+    </field>
+  </record>
+  
+
+
+</odoo>
+

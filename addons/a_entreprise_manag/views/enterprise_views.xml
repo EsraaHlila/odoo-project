@@ -1,0 +1,45 @@
+<odoo>
+  <record id="view_enterprise_form" model="ir.ui.view">
+    <field name="name">enterprise.manager.form</field>
+    <field name="model">enterprise.manager</field>
+    <field name="arch" type="xml">
+      <form string="Enterprise">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="enterprise_type"/>
+            <field name="registration_number"/>
+            <field name="phone"/>
+            <field name="email"/>
+            <field name="address"/>
+            <field name="website"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_enterprise_tree" model="ir.ui.view">
+    <field name="name">enterprise.manager.tree</field>
+    <field name="model">enterprise.manager</field>
+    <field name="arch" type="xml">
+      <tree string="Enterprises">
+        <field name="name"/>
+        <field name="enterprise_type"/>
+        <field name="registration_number"/>
+      </tree>
+    </field>
+  </record>
+
+  <menuitem id="menu_enterprise_root" name="Enterprises" sequence="10"/>
+  <menuitem id="menu_enterprise_manager" name="Manage Enterprises" parent="menu_enterprise_root" action="action_enterprise"/>
+
+  <record id="action_enterprise" model="ir.actions.act_window">
+    <field name="name">Enterprises</field>
+    <field name="res_model">enterprise.manager</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">Create the first enterprise</p>
+    </field>
+  </record>
+</odoo>

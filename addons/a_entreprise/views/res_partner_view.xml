@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_partner_form_inherited_entreprise" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.entreprise</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Insert the company_type selector before is_company -->
+            <xpath expr="//field[@name='is_company']" position="before">
+                <field name="company_type" widget="radio"/>
+            </xpath>
+
+            <!-- Insert contact/entreprise fields after the email field -->
+            <xpath expr="//field[@name='email']" position="after">
+                
+                <!-- Contact person fields (for Individual) -->
+                <group string="Contact Information" attrs="{'invisible': [('company_type', '=', 'company')]}">
+                    <field name="contact_name"/>
+                    <field name="contact_email"/>
+                    <field name="contact_phone"/>
+                    <field name="contact_function"/>
+                </group>
+
+                <!-- Entreprise fields (for Company) -->
+                <group string="Entreprise Information" attrs="{'invisible': [('company_type', '=', 'person')]}">
+                    <field name="entreprise_name"/>
+                    <field name="entreprise_type"/>
+                    <field name="registration_number"/>
+                    <field name="website"/>
+                </group>
+
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
+

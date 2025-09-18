@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="unique_menu_company_main"
+              name="Companies"
+              action="a_company.unique_company_action"
+              sequence="11"/>
+</odoo>
