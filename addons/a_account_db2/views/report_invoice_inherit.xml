@@ -1,11 +1,44 @@
-<odoo>
-    <template id="report_invoice_document_inherit_parent" inherit_id="account.report_invoice_document">
+<!--<odoo>
+    <template id="report_invoice_document_inherit_parent" inherit_id="account.report_invoice_document">-->
         <!-- Replace customer name/address in the PDF header -->
-        <xpath expr="//address[@t-field='o.partner_id']" position="replace">
-            <address>
+        <!--<xpath expr="//address[@t-field='o.partner_id']" position="replace">
+            <address>-->
                 <!-- Show x_parent_id instead of partner -->
-                <span t-field="o.x_parent_id" t-options="{'widget': 'many2one'}"/>
+                <!--<span t-field="o.x_parent_id" t-options="{'widget': 'many2one'}"/>
             </address>
         </xpath>
     </template>
+</odoo>-->
+<odoo>
+    <template id="report_invoice_document_inherit_parent" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[contains(@class,'row')]" position="replace">
+            <!-- Replace the whole address row with Parent Name only -->
+            <div class="row">
+                <div class="offset-col-6 col-6" name="custom_parent_address">
+                    <!--<strong>Parent</strong><br/>-->
+                    <span t-if="o.x_parent_id" t-field="o.x_parent_id.full_name"/>
+                    <span t-else="">No Parent Defined</span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--<template id="document_tax_totals_inherit_droit_timbre" inherit_id="account.document_tax_totals_template">-->
+
+
+        <!--<xpath expr="//tr[@class='oe_total']" position="replace"/>-->
+
+        <!--<xpath expr="//tr[@class='o_total']" position="before">
+            <tr class="o_droit_de_timbre">
+                <td><strong>Droit de Timbre</strong></td>
+                <td class="text-end">
+                    <span t-field="o.droit_de_timbre"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+
+    </template>-->
 </odoo>
+
+

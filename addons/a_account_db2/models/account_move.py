@@ -20,7 +20,107 @@ class AccountMove(models.Model):
         dummy_partner = self.env['res.partner'].browse(41)  # or use id: self.env['res.partner'].browse(1)
         if self.x_parent_id:
             self.partner_id = dummy_partner
-            
+#from odoo import api, models
+
+#from odoo import models, fields, api
+
+#class AccountMoveSend(models.TransientModel):
+ #   _inherit = 'account.move.send.wizard'
+
+#    parent_id = fields.Many2one(
+ #       'unique.parent',
+  #      string="Parent Contact",
+   #     help="Choose a parent contact to send this invoice to."
+    #)
+
+#    @api.onchange('parent_id')
+ #   def _onchange_parent_id(self):
+  #      """Auto-fill mail_partner_ids when selecting a parent."""
+   #     if self.parent_id and self.parent_id.email:
+            # Append to existing recipients
+    #        existing_partners = self.mail_partner_ids
+     #       parent_partner = self.env['res.partner'].search(
+      #          [('email', '=', self.parent_id.email)], limit=1
+       #     )
+        #    if parent_partner:
+         #       self.mail_partner_ids |= parent_partner
+
+
+
+#class AccountMoveSendWizard(models.TransientModel):
+ #   _inherit = "account.move.send.wizard"
+
+  #  x_parent_id = fields.Many2one(
+   #     comodel_name="unique.parent",
+    #    string="Parent"
+        #compute="_compute_parent_id"
+    #)
+
+
+class AccountMoveSendWizard(models.TransientModel):
+    _inherit = "account.move.send.wizard"
+
+    x_parent_id = fields.Many2one(
+        comodel_name="unique.parent",
+        string="Parent"
+    )
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        # Prefill x_parent_id from the active invoice
+        active_id = self.env.context.get('active_id')
+        if active_id:
+            invoice = self.env['account.move'].browse(active_id)
+            res['x_parent_id'] = invoice.x_parent_id
+        return res
+
+
+#    @api.model
+#    def default_get(self, fields_list):
+#        """Prefill parent and recipients with the parent from the active invoice"""
+ #       res = super().default_get(fields_list)
+  #      active_id = self.env.context.get("active_id")
+   #     if active_id:
+    #        move = self.env["account.move"].browse(active_id)
+     #       if move and move.x_parent_id:
+                # Prefill our custom field with parent from invoice
+                #res["x_parent_id"] = move.x_parent_id.id
+
+                # Prefill email recipients (mail_partner_ids)
+                # Get email from parent partner if available
+      #          if move.x_parent_id.email:
+       #             res["mail_partner_ids"] = [(6, 0, [move.x_parent_id.id])]
+        #return res
+
+
+
+
+
+
+
+  
+
+#    def _compute_parent_id(self):
+ #       for wizard in self:
+  #          if wizard.move_id and wizard.move_id.x_parent_id:
+   #             wizard.parent_id = wizard.move_id.x_parent_id.id
+    #        else:
+     #           wizard.parent_id = False
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
 
     #@api.depends('x_parent_id.full_name')
 #    def _compute_name(self):

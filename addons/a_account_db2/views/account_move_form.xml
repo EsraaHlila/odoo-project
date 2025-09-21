@@ -22,5 +22,41 @@
             </xpath>
 
         </field>
-    </record>
+		
+	</record>
+
+	<!--<record id="view_account_move_send_custom" model="ir.ui.view">
+		<field name="name">account.move.send.custom</field>
+		<field name="model">account.move.send.wizard</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="mail_partner_ids"
+						string="Parent Email"
+						relation="unique_parent"
+						widget="many2many_tags"
+						placeholder="Select Parent..."
+						options="{'no_quick_create': True}"/>
+					<field name="mail_subject"/>
+					<field name="mail_body" widget="html_mail"/>
+				</group>
+			</form>
+		</field>
+	</record>-->
+	<record id="view_account_move_send_inherit_parent" model="ir.ui.view">
+		<field name="name">account.move.send.inherit.parent</field>
+		<field name="model">account.move.send.wizard</field>
+		<field name="inherit_id" ref="account.account_move_send_wizard_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='mail_partner_ids']" position="after">
+				<label for="x_parent_id">Parent</label><field name="x_parent_id"/>
+			</xpath>
+		</field>
+	</record>
+
+
+
+
+
+
 </odoo>

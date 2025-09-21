@@ -23,4 +23,18 @@
 
         </field>
     </record>
+	
+	
+	<record id="view_account_move_send_inherit_parent" model="ir.ui.view">
+		<field name="name">account.move.send.inherit.parent</field>
+		<field name="model">account.move.send.wizard</field>
+		<field name="inherit_id" ref="account.account_move_send_wizard_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='mail_partner_ids']" position="after">
+				<label for="x_company_id">Company</label><field name="x_company_id"/>
+			</xpath>
+		</field>
+	</record>
+	
+	
 </odoo>
